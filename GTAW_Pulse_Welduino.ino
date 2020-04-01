@@ -30,10 +30,11 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   Serial.println("Hello!");
+  Serial.println("Generating square wave @ 0.5Hz!");
   // For Adafruit MCP4725A1 the address is 0x62 (default) or 0x63 (ADDR pin tied to VCC)
   // For MCP4725A0 the address is 0x60 or 0x61
   // For MCP4725A2 the address is 0x64 or 0x65
-  dac.begin(0x61);
+  dac.begin(0x61); //Address of our DAC module
 /**************************************************************************/
   // set the digital pin as output:
   pinMode(ledPin, OUTPUT);
@@ -65,8 +66,9 @@ void loop() {
           } else {
             ledState = LOW;
           }            
-          // Change LED pin via ledState variable:
-          digitalWrite(ledPin, ledState);          
+          // Change LED pin and mux address MSB via ledState variable:
+          digitalWrite(ledPin, ledState);
+          digitalWrite(uiMuxAddr0, ledState);
         }    
       }
 }
